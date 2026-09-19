@@ -1,4 +1,4 @@
-"""Export DRIVE-X neural networks to ncnn and verify their PyTorch outputs.
+﻿"""Export DRIVE-X neural networks to ncnn and verify their PyTorch outputs.
 
 Run this on the Windows development host.  The generated .param/.bin files are
 platform independent; the QNX service loads them with an AArch64 QNX ncnn build.
@@ -49,7 +49,7 @@ def export_pnnx(model: nn.Module, output_stem: Path) -> None:
     output_stem.parent.mkdir(parents=True, exist_ok=True)
     traced_path = output_stem.with_suffix(".pt")
     # Preserve FP32 weights so deployment probabilities remain numerically
-    # equivalent to the jury metrics measured with the PyTorch checkpoints.
+    # equivalent to the recorded metrics measured with the PyTorch checkpoints.
     pnnx.export(model, str(traced_path), (sample,), fp16=False)
     generated = traced_path.parent
     source_stem = traced_path.stem
@@ -117,3 +117,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

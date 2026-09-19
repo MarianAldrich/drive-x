@@ -1,6 +1,6 @@
-# Optional Windows-to-QNX video prototype
+﻿# Optional Windows-to-QNX video prototype
 
-This prototype is separate from the working jury evidence pipeline. Windows sends
+This prototype is separate from the working demonstration pipeline. Windows sends
 640x480 JPEG frames at 5 FPS over UDP port 45556. QNX reassembles every frame,
 checks its CRC32, atomically replaces `/tmp/drive_x_latest.jpg`, and decodes the
 frame to RGB888 through the native QNX Image Library.
@@ -40,3 +40,4 @@ scp -O -o KexAlgorithms=curve25519-sha256@libssh.org -o Ciphers=aes128-ctr -o MA
 
 UDP does not guarantee delivery. An incomplete frame is dropped when a newer
 frame begins. This bounds memory and latency rather than displaying stale video.
+

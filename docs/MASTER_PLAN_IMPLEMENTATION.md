@@ -1,4 +1,4 @@
-# DRIVE-X master-plan implementation
+﻿# DRIVE-X master-plan implementation
 
 ## Implemented and buildable
 
@@ -44,7 +44,7 @@ export VIGIL_ALERT_HOST=192.168.137.1
 export VIGIL_ALERT_PORT=45557
 ```
 
-Use 5000 ms for a short jury demonstration. Use a validated safety requirement for
+Use 5000 ms for a short project demonstration. Use a validated safety requirement for
 real deployment. If the GPS device is absent, `vigil_gps` remains alive, reports that
 it is waiting, and the alert record explicitly says `gps=NO_FIX`.
 
@@ -69,3 +69,4 @@ are never compiled into the QNX application.
    message, and the dashboard speed falling toward zero.
 6. Apply CPU stress and capture the priorities, affinities, sporadic budgets, and
    decision execution in Momentics System Profiler.
+

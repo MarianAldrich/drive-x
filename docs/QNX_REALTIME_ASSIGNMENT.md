@@ -1,4 +1,4 @@
-# DRIVE-X QNX real-time assignment
+﻿# DRIVE-X QNX real-time assignment
 
 ## Runtime pipeline
 
@@ -65,7 +65,7 @@ If `mqueue` reports that it is already running, continue. The services deliberat
 fail startup if QNX refuses their priority, affinity, or sporadic budget; fix the
 process abilities or run as root rather than silently losing real-time behavior.
 
-## Demonstrate each jury feature
+## Demonstrate each required feature
 
 Use another Pi terminal:
 
@@ -119,3 +119,4 @@ Adaptive Partitioning Scheduler is not claimed here because it depends on the Pi
 image being booted with the APS scheduler. The implemented CPU budgets use QNX
 `SCHED_SPORADIC`, which is present in QNX SDP 8 and can be shown directly in the
 profiler.
+

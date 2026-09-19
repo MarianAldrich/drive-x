@@ -1,4 +1,4 @@
-# VIGIL-QNX jury demo runbook
+﻿# VIGIL-QNX project demo runbook
 
 VIGIL-QNX is a hybrid prototype. Windows performs camera inference; QNX owns the
 time-bounded decision, stale-data protection, logging, and recovery. Do not claim
@@ -104,3 +104,4 @@ on slide 6 only after this real capture exists.
 
 The YawDD classifier uses video-level weak supervision. Describe its score as yawn
 evidence, not a calibrated medical or safety probability.
+
