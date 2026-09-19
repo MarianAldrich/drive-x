@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DRIVE-X · Driver monitor</title><link rel="stylesheet" href="/style.css"><style>
+.telemetry{grid-template-columns:repeat(4,1fr);row-gap:22px}
+.head-panel{margin-top:16px;padding:13px;border:1px solid var(--line);border-radius:8px;background:#0d161f}
+.head-panel.cue{border-color:var(--warn);background:#282317}
+.head-title,.head-values{display:flex;justify-content:space-between;gap:12px}.head-title{font-size:12px}
+.head-title strong{font-size:9px;letter-spacing:1px;color:var(--muted)}.head-panel.cue .head-title strong{color:var(--warn)}
+.head-values{margin-top:10px;color:var(--muted);font-size:10px}.head-values b{color:var(--text);font-weight:600}
+.telemetry .emergency-active{color:var(--bad)}
+</style></head>
+<body>
+<header><a class="brand" href="/"><span class="mark">◉</span> DRIVE-X<span class="brand-sub">DETERMINISTIC DRIVER MONITOR</span></a><span class="local"><i></i> WINDOWS AI SENSOR</span></header>
+<main>
+  <div class="intro"><div><p class="eyebrow">MOBILENETV3–SMALL / LIVE VISION</p><h1>A clearer view of driver alertness.</h1><p class="muted">Live camera monitoring with drowsiness and yawn detection.</p></div><span class="session" id="sessionTime">SESSION 00:00</span></div>
+  <div class="workspace">
+    <section class="camera-card">
+      <div class="card-heading"><span><span id="liveDot" class="dot"></span> LIVE FEED</span><span id="cameraLabel">CAMERA OFF</span></div>
+      <div class="viewport">
+        <video id="video" autoplay muted playsinline></video><canvas id="overlay"></canvas>
+        <div id="empty"><div class="camera-icon">◎</div><h2>Your camera, your device.</h2><p>Start the camera to see your live feed.<br>Frames stay on this computer and are not recorded.</p></div>
+        <div class="feed-tag" id="feedTag">WAITING FOR CAMERA</div>
+      </div>
+      <div class="camera-controls"><button class="primary" id="start">▶ Start camera</button><button id="stop" disabled>Stop</button><label class="sound"><input type="checkbox" id="sound"> Sound alert</label></div>
+      <p class="camera-help" id="cameraHelp">Use Chrome or Edge. Keep one face in view with even lighting.</p>
+    </section>
+    <aside>
+      <section class="status-card" id="statusCard" data-state="idle"><p class="eyebrow">DRIVER STATE</p><div class="state-symbol" id="stateSymbol">—</div><h2 id="stateTitle">Ready when you are</h2><p id="stateMessage">Start your camera to begin monitoring.</p><div class="window"><span>Video window</span><span id="windowCount">0 / 8</span></div><div class="progress"><div id="windowBar"></div></div></section>
+      <section class="scores"><h3>State evidence <span>VIDEO WINDOW</span></h3>
+        <div class="score"><div><span>Alert</span><b id="alertValue">—</b></div><div class="bar"><i id="alertBar"></i></div></div>
+        <div class="score"><div><span>Low vigilance</span><b id="lowValue">—</b></div><div class="bar"><i id="lowBar"></i></div></div>
+        <div class="score"><div><span>Drowsy</span><b id="drowsyValue">—</b></div><div class="bar"><i id="drowsyBar"></i></div></div>
+        <div class="yawn"><span>Yawn evidence</span><strong id="yawnValue">—</strong></div>
+        <div class="head-panel" id="headPanel"><div class="head-title"><span>Head pose</span><strong id="headCue">WAITING</strong></div><div class="head-values"><span>Yaw <b id="headYaw">—</b></span><span>Pitch <b id="headPitch">—</b></span><span>Roll <b id="headRoll">—</b></span></div></div>
+        <p class="fine">Eye, yawn and sustained head-pose cues; not calibrated risk probabilities.</p>
+      </section>
+    </aside>
+  </div>
+  <section class="telemetry"><div><span>INFERENCE</span><strong id="latency">— <small>ms</small></strong></div><div><span>FACE TRACKING</span><strong id="faceStatus">Waiting</strong></div><div><span>HEAD MOVEMENT</span><strong id="headStatus">Waiting</strong></div><div><span>QNX LINK</span><strong id="qnxLink">Disabled</strong></div><div><span>QNX DECISION</span><strong id="qnxDecision">Unavailable</strong></div><div><span>QNX LATENCY</span><strong id="qnxLatency">— <small>µs</small></strong></div><div><span>PACKET AGE</span><strong id="qnxAge">— <small>ms</small></strong></div><div><span>RECOVERY RTO</span><strong id="qnxRto">— <small>ms</small></strong></div><div><span>SIMULATED VEHICLE SPEED</span><strong id="vehicleSpeed">60 <small>km/h</small></strong></div><div><span>EMERGENCY PATH</span><strong id="emergencyState">Standby</strong></div></section>
+  <div id="modelNotice" class="notice" hidden><div><strong>Training checkpoints needed</strong><p>Run the Colab notebook, then extract <code>trained_models.zip</code> into <code>models/trained</code>. The camera preview works while models are unavailable.</p></div><button id="reload">Reload models</button></div>
+  <section class="events"><div class="events-heading"><h3>Session activity</h3><button class="quiet" id="clearEvents">Clear</button></div><ul id="events"><li class="muted">Detection events will appear here.</li></ul></section>
+  <footer><span>DRIVE-X · HYBRID DETERMINISTIC SAFETY MONITOR</span><span>Research prototype · Validate before relying on alerts.</span></footer>
+</main><script src="/app.js"></script>
+</body></html>

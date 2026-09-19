@@ -1,0 +1,62 @@
+[
+  {
+    "id": "16x8afSOwfbdGAjUbfRFvwGj1ie8Lf5Do",
+    "name": "Fold1_part1.zip",
+    "bytes": 12880106338,
+    "fold": 1
+  },
+  {
+    "id": "1qPoJ06jeznytP_BGJ25hxdQy7eYTTjyk",
+    "name": "Fold1_part2.zip",
+    "bytes": 11679386528,
+    "fold": 1
+  },
+  {
+    "id": "12uVMVLv_kRXzQb4QDdru9RK3G9hzfpPQ",
+    "name": "Fold2_part1.zip",
+    "bytes": 11333579094,
+    "fold": 2
+  },
+  {
+    "id": "1nYGUpqE3x5ZeRLgDeMlUN4K_ccPjM2pe",
+    "name": "Fold2_part2.zip",
+    "bytes": 12192957897,
+    "fold": 2
+  },
+  {
+    "id": "1-JhE5TfkNyr4UbQk6PSkkpI7z-SChkWS",
+    "name": "Fold3_part1.zip",
+    "bytes": 12813328785,
+    "fold": 3
+  },
+  {
+    "id": "1LZU5KfJkFMj2pIkGwb3RjHDazoUfxSYQ",
+    "name": "Fold3_part2.zip",
+    "bytes": 8103809654,
+    "fold": 3
+  },
+  {
+    "id": "1IYKdrjvawf90bG_cfeoWA4rZSymllFbD",
+    "name": "Fold4_part1.zip",
+    "bytes": 12437963092,
+    "fold": 4
+  },
+  {
+    "id": "1zJlASBwABBgVSULQLiia0R_Eqar8_B3D",
+    "name": "Fold4_part2.zip",
+    "bytes": 14334448068,
+    "fold": 4
+  },
+  {
+    "id": "16w30wEgcAbaUr4gx9o4sl_2TbIunD5yA",
+    "name": "Fold5_part1.zip",
+    "bytes": 10909873879,
+    "fold": 5
+  },
+  {
+    "id": "1loOQE1-hoNM5dIOjXHI2Ss5NjjoPZcX6",
+    "name": "Fold5_part2.zip",
+    "bytes": 12827442801,
+    "fold": 5
+  }
+]

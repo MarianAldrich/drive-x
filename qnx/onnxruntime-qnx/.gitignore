@@ -1,0 +1,7 @@
+*.log
+windows-ca-bundle.pem
+host-tools/
+ort_smoke
+smoke-link.rsp
+ort_trial/
+ort_trial.zip

@@ -1,0 +1,41 @@
+{
+  "data": "/kaggle/working/driver_data/eye_state",
+  "output": "/kaggle/working/driver_output/eye_state",
+  "epochs": 15,
+  "freeze_epochs": 1,
+  "batch_size": 128,
+  "workers": 2,
+  "lr": 0.001,
+  "patience": 4,
+  "seed": 42,
+  "device": "cuda",
+  "weights": "imagenet",
+  "resume": false,
+  "architecture": "mobilenet_v3_small",
+  "task": "eye_state",
+  "class_to_idx": {
+    "closed": 0,
+    "open": 1
+  },
+  "torch_version": "2.10.0+cu128",
+  "manifest_sha256": "4dab8eb7e4cae5c1010951b28414923fbd67f09d5aedbe0f5d5cdaf74ccdee34",
+  "preprocessing": {
+    "color": "RGB",
+    "resize_short_edge": 256,
+    "center_crop": 224,
+    "interpolation": "bilinear",
+    "antialias": true,
+    "scale": 0.00392156862745098,
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "layout": "NCHW"
+  }
+}

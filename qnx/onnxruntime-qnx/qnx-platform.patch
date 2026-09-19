@@ -1,0 +1,115 @@
+diff --git a/onnxruntime/core/common/logging/logging.cc b/onnxruntime/core/common/logging/logging.cc
+index eac9a7f..8955b35 100644
+--- a/onnxruntime/core/common/logging/logging.cc
++++ b/onnxruntime/core/common/logging/logging.cc
+@@ -16,7 +16,7 @@
+ #include "core/common/logging/sinks/composite_sink.h"
+ #else
+ #include <unistd.h>
+-#if defined(__MACH__) || defined(__wasm__) || defined(_AIX)
++#if defined(__MACH__) || defined(__wasm__) || defined(_AIX) || defined(__QNXNTO__)
+ #include <pthread.h>
+ #else
+ #include <sys/syscall.h>
+@@ -225,7 +225,7 @@ unsigned int GetThreadId() {
+   long tid;
+   thr_self(&tid);
+   return static_cast<unsigned int>(tid);
+-#elif defined(__wasm__) || defined(_AIX)
++#elif defined(__wasm__) || defined(_AIX) || defined(__QNXNTO__)
+   return static_cast<unsigned int>(pthread_self());
+ #else
+   return static_cast<unsigned int>(syscall(SYS_gettid));
+@@ -238,7 +238,7 @@ unsigned int GetThreadId() {
+ unsigned int GetProcessId() {
+ #ifdef _WIN32
+   return static_cast<unsigned int>(GetCurrentProcessId());
+-#elif defined(__MACH__) || defined(__wasm__) || defined(_AIX)
++#elif defined(__MACH__) || defined(__wasm__) || defined(_AIX) || defined(__QNXNTO__)
+   return static_cast<unsigned int>(getpid());
+ #else
+   return static_cast<unsigned int>(syscall(SYS_getpid));
+diff --git a/onnxruntime/core/platform/path_lib.h b/onnxruntime/core/platform/path_lib.h
+index a9d89f3..998aae7 100644
+--- a/onnxruntime/core/platform/path_lib.h
++++ b/onnxruntime/core/platform/path_lib.h
+@@ -7,7 +7,7 @@
+ #include <sstream>
+ #include <assert.h>
+ #include <stdexcept>
+-#if defined(_AIX)
++#if defined(_AIX) || defined(__QNXNTO__)
+ #include <sys/stat.h>
+ #include <iostream>
+ #endif
+@@ -236,9 +236,9 @@ inline std::basic_string<PATH_CHAR_TYPE> GetLastComponent(const std::basic_strin
+   return input.substr(pos);
+ }
+ 
+-#elif defined(_AIX)
++#elif defined(_AIX) || defined(__QNXNTO__)
+ inline OrtFileType DTToFileTypeAIX(struct stat st) {
+-  switch (st.st_mode & _S_IFMT) {
++  switch (st.st_mode & S_IFMT) {
+     case S_IFBLK:
+       return OrtFileType::TYPE_BLK;
+     case S_IFCHR:
+@@ -281,8 +281,12 @@ void LoopDir(const std::string& dir_name, T func) {
+   ORT_TRY {
+     struct dirent* dp;
+     while ((dp = readdir(dir)) != nullptr) {
+-      std::basic_string<PATH_CHAR_TYPE> filename = ConcatPathComponent<PATH_CHAR_TYPE>(dir_name, dp->d_name);
++      std::basic_string<PATH_CHAR_TYPE> filename = ConcatPathComponent(dir_name, dp->d_name);
++#if defined(__QNXNTO__)
++      if (lstat(filename.c_str(), &stats) != 0) {
++#else
+       if (stat(filename.c_str(), &stats) != 0) {
++#endif
+         continue;
+       }
+       if (!func(dp->d_name, DTToFileTypeAIX(stats))) {
+diff --git a/onnxruntime/core/platform/posix/env.cc b/onnxruntime/core/platform/posix/env.cc
+index 9999550..ca6dc5a 100644
+--- a/onnxruntime/core/platform/posix/env.cc
++++ b/onnxruntime/core/platform/posix/env.cc
+@@ -26,7 +26,9 @@ limitations under the License.
+ #include <stdlib.h>
+ #include <string.h>
+ #include <sys/mman.h>
++#if !defined(__QNXNTO__)
+ #include <sys/syscall.h>
++#endif
+ #include <unistd.h>
+ 
+ #include <iostream>
+@@ -203,7 +205,7 @@ class PosixThread : public EnvThread {
+   static void* ThreadMain(void* param) {
+     std::unique_ptr<Param> p(static_cast<Param*>(param));
+     ORT_TRY {
+-#if !defined(__APPLE__) && !defined(__ANDROID__) && !defined(__wasm__) && !defined(_AIX)
++#if !defined(__APPLE__) && !defined(__ANDROID__) && !defined(__wasm__) && !defined(_AIX) && !defined(__QNXNTO__)
+       if (p->affinity.has_value() && !p->affinity->empty()) {
+         cpu_set_t cpuset;
+         CPU_ZERO(&cpuset);
+diff --git a/onnxruntime/core/platform/posix/stacktrace.cc b/onnxruntime/core/platform/posix/stacktrace.cc
+index 8af418a..e5217d4 100644
+--- a/onnxruntime/core/platform/posix/stacktrace.cc
++++ b/onnxruntime/core/platform/posix/stacktrace.cc
+@@ -3,7 +3,7 @@
+ 
+ #include "core/common/common.h"
+ 
+-#if !defined(__ANDROID__) && !defined(__wasm__) && !defined(_OPSCHEMA_LIB_) && !defined(_AIX)
++#if !defined(__ANDROID__) && !defined(__wasm__) && !defined(_OPSCHEMA_LIB_) && !defined(_AIX) && !defined(__QNXNTO__)
+ #include <execinfo.h>
+ #endif
+ #include <vector>
+@@ -13,7 +13,7 @@ namespace onnxruntime {
+ std::vector<std::string> GetStackTrace() {
+   std::vector<std::string> stack;
+ 
+-#if !defined(NDEBUG) && !defined(__ANDROID__) && !defined(__wasm__) && !defined(_OPSCHEMA_LIB_)
++#if !defined(NDEBUG) && !defined(__ANDROID__) && !defined(__wasm__) && !defined(_OPSCHEMA_LIB_) && !defined(__QNXNTO__)
+   constexpr int kCallstackLimit = 64;  // Maximum depth of callstack
+ 
+   void* array[kCallstackLimit];

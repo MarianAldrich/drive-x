@@ -1,0 +1,48 @@
+{
+  "data": "/kaggle/working/driver_data/yawn",
+  "task": "yawn",
+  "output": "/kaggle/working/driver_output/yawn",
+  "epochs": 40,
+  "freeze_epochs": 3,
+  "batch_size": 4,
+  "bag_size": 16,
+  "workers": 2,
+  "lr": 0.0003,
+  "patience": 8,
+  "seed": 42,
+  "device": "cuda",
+  "weights": "imagenet",
+  "resume": false,
+  "architecture": "mobilenet_v3_small_video",
+  "classes": [
+    "no_yawn",
+    "yawn"
+  ],
+  "crop_version": "yunet-square-v1",
+  "manifest_sha256": "b031ea1b2242e29d2ee1dff43866c52e42e6a7cac42d7deb2c6ed3c33791645a",
+  "top_fraction": 0.25,
+  "pooling": "top_quarter_log_odds",
+  "supervision": "video_level",
+  "torch_version": "2.10.0+cu128",
+  "preprocessing": {
+    "color": "RGB",
+    "saved_crop": [
+      256,
+      256
+    ],
+    "resize_short_edge": 256,
+    "center_crop": 224,
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "scale": 0.00392156862745098,
+    "layout": "NCHW"
+  }
+}

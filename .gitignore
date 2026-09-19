@@ -1,0 +1,30 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Data and local caches
+dataset/
+datasets/
+models/cache/
+models/local/
+results/
+logs/
+
+# QNX generated files and SDK source/build trees
+qnx/build/
+qnx/third_party/
+qnx/models_onnx/
+qnx/onnxruntime-qnx/build-qnx-minimal/
+qnx/onnxruntime-qnx/ort_trial/
+qnx/onnxruntime-qnx/ort_pipeline_update/
+*.rsp
+
+# OS/editor files
+.vscode/
+.settings/
+*.user
+~$*
+.DS_Store
+Thumbs.db
